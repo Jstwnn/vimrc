@@ -1,12 +1,73 @@
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
+endfunction
+"""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
+" Make sure you use single quotes
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
+
+" Any valid git URL is allowed
+"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+""Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets
 Plug 'honza/vim-snippets'
+
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+"Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+"Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Unmanaged plugin (manually installed and updated)
+"Plug '~/my-prototype-plugin'
+
 " ++++++++++++++++++++++++++++++++++++++++++++++++ "
 Plug 'flazz/vim-colorschemes'
 Plug 'majutsushi/tagbar'
@@ -25,18 +86,48 @@ Plug 'yegappan/mru'
 " Initialize plugin system
 call plug#end()
 """"""""""""""""""""""""""""""""
+"colorscheme torte
+"colorscheme molokai
+"colorscheme codeschool
+"colorscheme solarized
+"colorscheme atom-dark
+"colorscheme Benokai
+"colorscheme candyman
+"colorscheme holokai
+colorscheme lxvc
 
-colorscheme solarized
+"set guifont=Consolas_for_Powerline:h10
+"set guifont=Consolas:h11
 
+""""""""""""""""""""""""""""""""
+if has("gui_running")
+au GUIEnter * simalt ~x " Max Window on starting
+"set guioptions-=m " Hide Menubar
+set guioptions-=T " Hide Toolbar
+"set guioptions-=L " Hide Left-scroller
+"set guioptions-=r " Hide Right-scroller
+"set guioptions-=b " Hide Bottom-scroller
+"set showtabline=0 " Hide Tab-menu
+endif
+""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""
 "let mapleader='t'
 let mapleader="\<Space>"
 
+"set cuc
 set cul
 set fillchars+=vert:\|
 hi vertsplit guifg=fg guibg=bg
 
 " Set for 80 characters
+"highlight ColorColumn ctermbg=235 guibg=#252627
+"let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
+
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
 
 " Indent lines
 set expandtab "Use softtabstop spaces instead of tab characters for indentation
