@@ -8,7 +8,6 @@ Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " ++++++++++++++++++++++++++++++++++++++++++++++++ "
 Plug 'flazz/vim-colorschemes'
-Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/taglist.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
