@@ -1,7 +1,6 @@
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
-
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 Plug 'honza/vim-snippets'
@@ -96,7 +95,6 @@ source $VIMRUNTIME/menu.vim
 set t_Co=256
 set termencoding=utf-8
 set encoding=utf-8
-set langmenu=zh_CN.UTF-8
 
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set fileencoding=utf-8
@@ -117,7 +115,7 @@ let g:bufferline_echo=0
 set ambiwidth=double
 let g:Powerline_symbols='fancy'
 
-set guifont=Consolas\ for\ Powerline\ FixedD:h10
+set guifont=Consolas\ for\ Powerline\ FixedD:h11
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -149,15 +147,6 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.spell = 'ξ'
 let g:airline_symbols.notexists = 'θ'
 let g:airline_symbols.whitespace = '-'
-
-" " powerline symbols
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
-"let g:airline_symbols.branch = '⭠'
-"let g:airline_symbols.readonly = '⭤'
-"let g:airline_symbols.linenr = '⭡'
 
 " " old vim-powerline symbols
 let g:airline_left_sep = '⮀'
